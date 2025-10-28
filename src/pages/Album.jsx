@@ -1,5 +1,3 @@
-// File: src/pages/Album.jsx
-
 import React, { useState } from "react";
 import { Play, Heart, MoreHorizontal, Clock } from "lucide-react";
 import { motion } from "framer-motion";
@@ -55,4 +53,30 @@ export default function Album() {
       {error && <p className="text-red-500">{error}</p>}
 
       {!loading && tracks.length === 0 && !error && (
-        <p>Try searching for y
+        <p>Try searching for your favorite artist or song.</p>
+      )}
+
+      <div className="tracks-list mt-4 space-y-2">
+        {tracks.map((track, index) => (
+          <div
+            key={track.id || track.videoId || index} // Ensure unique key
+            className="track-item p-2 border rounded-lg flex justify-between items-center"
+          >
+            <div>
+              <h3 className="font-semibold">{track.title}</h3>
+              <p className="text-gray-400 text-sm">{track.channel}</p>
+            </div>
+            <a
+              href={track.url || `https://youtube.com/watch?v=${track.videoId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500"
+            >
+              Watch on YouTube
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
